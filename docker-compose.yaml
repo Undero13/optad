@@ -1,0 +1,26 @@
+version: '3.7'
+
+services: 
+  php:
+    working_dir: /app
+    container_name: php
+    build:
+      context: .
+      dockerfile: ./build/php/Dockerfile
+    command: "symfony server:start"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./app:/app
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./db_data:/db
+    ports:
+      - 3306:3306
