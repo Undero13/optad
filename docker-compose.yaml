@@ -17,7 +17,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: symfony
+      MYSQL_DATABASE: optad
       MYSQL_USER: root
       MYSQL_PASSWORD: root
     volumes:
