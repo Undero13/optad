@@ -30,7 +30,10 @@ class GetDataCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $url = $input->getArgument('url') ?? 'https://api.optad360.com/testapi';
+        /**
+         * $url - optional param - url to api
+         */
+        $url = $input->getArgument('url') ?? $_SERVER['BASE_URL'];
         $output->writeln('<question>Api url is: '. $url . '</question>');
 
         try {

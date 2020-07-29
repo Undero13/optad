@@ -19,6 +19,9 @@ class DataManager
         $this->serializer = $serializer;
     }
 
+    /**
+     * Get data from api
+     */
     public function getData(string $url)
     {
         try {
@@ -36,6 +39,9 @@ class DataManager
         }
     }
 
+    /**
+     * Save data to database
+     */
     public function saveData()
     {
         list($modelName, $data) = $this->processData();
@@ -49,6 +55,9 @@ class DataManager
         }
     }
 
+    /**
+     * change array to assoc array
+     */
     private function processData(): array
     {
         $name = $this->data['settings']['currency'];
@@ -62,6 +71,9 @@ class DataManager
         return [$name, $assocData];
     }
 
+    /**
+     * Normalize api's headers - lowercase and replace space to _
+     */
     private function normalizeHeaders(array $headers): array
     {
         $callback = function (string $value) {
