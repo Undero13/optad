@@ -2,14 +2,24 @@
 
 namespace App\Command;
 
+use App\Service\DataManager;
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetDataCommand extends Command
+class GetDataCommand extends Command 
 {
-  protected static $defaultName = 'app:get-data-from-api';
+  protected static $defaultName = 'app:getdata';
+  private $dataManager;
 
+  public function __construct(DataManager $dataManager)
+  {
+    $this->dataManager = $dataManager;
+
+    parent::__construct();
+  }
+ 
   protected function configure()
   {
     $this
@@ -19,7 +29,14 @@ class GetDataCommand extends Command
 
   protected function execute(InputInterface $input, OutputInterface $output)
   {
+
+    try {
+      $this->dataManager->getData('https://api.optad360.com/testapi');
+      $this->dataManager->saveData();
       return Command::SUCCESS;
-      // return Command::FAILURE;
+    } catch (Exception $e) {
+      $output->writeln('<error>' . $e->getMessage() . '</error>');
+      return Command::FAILURE;
+    }
   }
 }
