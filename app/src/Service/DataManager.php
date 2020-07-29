@@ -3,18 +3,21 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DataManager 
 {
-  private $client;
-  private $em;
-  private $data;
 
-  public function __construct(HttpClientInterface $client, EntityManagerInterface $em)
+  private $data;
+  private $client;
+  private $serializer;
+
+  public function __construct(HttpClientInterface $client, EntityManagerInterface $em, SerializerInterface $serializer)
   {
-    $this->client = $client;
     $this->em = $em;
+    $this->client = $client;
+    $this->serializer = $serializer;
   }
 
   public function getData(string $url)
@@ -28,7 +31,7 @@ class DataManager
     $statusCode = $response->getStatusCode();
 
     if ($statusCode === 200) {
-      $this->data = $content = $response->toArray();
+      $this->data = $response->toArray();
     } else {
       throw new \Exception('Somethink wrong. Response status:' . $statusCode);
     }
@@ -36,8 +39,15 @@ class DataManager
 
   public function saveData()
   {
-      list($tableName, $data) = $this->processData();
-      die(print_r($data));
+      list($modelName, $data) = $this->processData();
+
+      $type = "App\\Entity\\$modelName";
+
+      foreach ($data as $row) {
+        $model = $this->serializer->deserialize(json_encode($row), $type, 'json');
+        $this->em->persist($model);
+        $this->em->flush();
+      }
   }
 
   private function processData(): array
