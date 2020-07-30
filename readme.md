@@ -8,3 +8,4 @@
 - ecs - composer ecs -- --fix
 
 ## Test
+- php bin/phpunit - run tests

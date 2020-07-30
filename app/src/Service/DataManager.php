@@ -22,7 +22,7 @@ class DataManager
     /**
      * Get data from api
      */
-    public function getData(string $url)
+    public function getDataFromApi(string $url)
     {
         try {
             $response = $this->client->request("GET", $url);

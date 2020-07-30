@@ -24,7 +24,10 @@
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
+        "symfony/browser-kit": "^5.1",
+        "symfony/css-selector": "^5.1",
         "symfony/maker-bundle": "^1.20",
+        "symfony/phpunit-bridge": "^5.1",
         "symplify/easy-coding-standard": "^8.1"
     },
     "config": {

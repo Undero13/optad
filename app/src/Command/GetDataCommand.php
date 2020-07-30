@@ -37,7 +37,7 @@ class GetDataCommand extends Command
         $output->writeln('<question>Api url is: '. $url . '</question>');
 
         try {
-            $this->dataManager->getData($url);
+            $this->dataManager->getDataFromApi($url);
             $this->dataManager->saveData();
         } catch (\Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
