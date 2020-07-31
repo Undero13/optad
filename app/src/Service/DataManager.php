@@ -19,6 +19,11 @@ class DataManager
         $this->serializer = $serializer;
     }
 
+    public function getData()
+    {
+        return $this->data;
+    }
+
     /**
      * Get data from api
      */
@@ -63,7 +68,7 @@ class DataManager
         $name = $this->data['settings']['currency'];
         $headers = $this->normalizeHeaders($this->data['headers']);
         $assocData = [];
-    
+        
         foreach ($this->data['data'] as $row) {
             array_push($assocData, array_combine($headers, $row));
         }

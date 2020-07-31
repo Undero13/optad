@@ -57,8 +57,9 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
-        "phpcbf":"phpcbf src",
-        "ecs": "vendor/bin/ecs check src --set clean-code",
+        "phpcbf":"phpcbf src tests",
+        "phpcs":"phpcs src tests",
+        "ecs": "vendor/bin/ecs check src tests --set clean-code",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
